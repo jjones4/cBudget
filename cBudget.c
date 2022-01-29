@@ -29,7 +29,7 @@
 #define DESCRIPTION_LEN 50
 #define NUM_TABS        6
 
-/* Function prototype (declaration) */
+/* Function prototypes (declarations) */
 int read_str(char str[], int n);
 void display_budget(char budget_records[MAX_RECORDS][DATE_LEN \
    + AMOUNT_LEN + TYPE_LEN + DESCRIPTION_LEN + NUM_TABS + 1], int n);

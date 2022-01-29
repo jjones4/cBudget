@@ -24,3 +24,4 @@ Date            Amount          Type            Description
 ----            ------          ----            -----------
 01/28/2022      32.50           e               Gas
 01/29/2022      721.26          i               Paycheck
+

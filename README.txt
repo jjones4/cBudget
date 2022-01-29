@@ -1,6 +1,6 @@
 Simple Command Line Budget App Written in C
 
-Note that there is no error checking in this app yet.
+Note that there is no input validation yet.
 
 The type of transaction is either e (expense) or i (income).
 

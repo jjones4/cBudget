@@ -1,4 +1,5 @@
 # cBudget
+
 Simple Command Line Budget App Written in C
 
 Note that there is no error checking in this app yet.
@@ -23,7 +24,6 @@ Enter transaction description: Paycheck
 Enter transaction date, mm/dd/yyyy: q
 
 Date            Amount          Type            Description
-----            ------          ----            -----------
 01/28/2022      32.50           e               Gas
 01/29/2022      721.26          i               Paycheck
 

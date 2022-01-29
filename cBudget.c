@@ -4,16 +4,14 @@
  *
  * Purpose: Keep track of a simple budget in a text file.
  *
- *          Each budget record will have the following:
+ *          Each budget record will have the following,
+ *          where e = expense, and i = income.
  *
  *          Date	Amount		Type		Description
  *          ____        ______          ____            ___________
  *
- *          mm/dd/yyyy	$xxxxxxx.yy	Expense/Income	210 Characters
+ *          mm/dd/yyyy	$xxxxxxx.yy	e/i	        Description of record
  *
- * Record display format:
- *
- *          mm/dd/yyyy\t\txxxxxxx.yy\t\tE\t\tDescription goes here\n
  *
  * Author:  jjones4
  *
@@ -33,11 +31,13 @@
 
 /* Function prototype (declaration) */
 int read_str(char str[], int n);
+void display_budget(char budget_records[MAX_RECORDS][DATE_LEN \
+   + AMOUNT_LEN + TYPE_LEN + DESCRIPTION_LEN + NUM_TABS + 1], int n);
 
 int main(void)
 {
    char records[MAX_RECORDS][DATE_LEN + AMOUNT_LEN + TYPE_LEN \
-      + DESCRIPTION_LEN + NUM_TABS];
+      + DESCRIPTION_LEN + NUM_TABS + 1];
    char date_str[DATE_LEN + 1], amount_str[AMOUNT_LEN + 1];
    char type_str[TYPE_LEN + 1], desc_str[DESCRIPTION_LEN + 1];
    int month, day, year, num_records = 0;
@@ -55,7 +55,7 @@ int main(void)
       printf("Enter transaction date, mm/dd/yyyy: ");
       read_str(date_str, DATE_LEN);
       
-      /* Enter quit to exit */
+      /* Enter q or Q to exit */
       if(strcmp(date_str, "Q") == 0 || strcmp(date_str, "q") == 0) {
 
          /* If user quits immediately, do not print records */
@@ -63,27 +63,16 @@ int main(void)
             break;
          }
 
-         /* Print records when user types q or Q */
-         printf("\nDate\t\tAmount\t\tType\t\tDescription\n");
-         printf("----\t\t------\t\t----\t\t-----------\n");
-         for(int i = 0; i < num_records; i++) {
+         /* Print records when user quits */
+         display_budget(&records[0], num_records);
 
-            int j = 0;
-            while(records[i][j] != '\0') {
-               printf("%c", records[i][j]);
-               j++;
-            }
-            printf("\n");
-         }
-
-         printf("\n");
          break;
       }
 
       printf("Enter transaction amount: ");
       read_str(amount_str, AMOUNT_LEN);
 
-      /* Enter quit to exit */
+      /* Enter q or Q to exit */
       if(strcmp(amount_str, "Q") == 0 || strcmp(amount_str, "q") == 0) {
 
          /* If user quits immediately, do not print records */
@@ -91,27 +80,16 @@ int main(void)
             break;
          }
 
-         /* Print records when user types q or Q */
-         printf("\nDate\t\tAmount\t\tType\t\tDescription\n");
-         printf("----\t\t------\t\t----\t\t-----------\n");
-         for(int i = 0; i < num_records; i++) {
+         /* Print records when user quits */
+         display_budget(&records[0], num_records);
 
-            int j = 0;
-            while(records[i][j] != '\0') {
-               printf("%c", records[i][j]);
-               j++;
-            }
-            printf("\n");
-         }
-
-         printf("\n");
          break;
       }
 
       printf("Enter transaction type, e or i: ");
       read_str(type_str, TYPE_LEN);
 
-      /* Enter quit to exit */
+      /* Enter q or Q to exit */
       if(strcmp(type_str, "Q") == 0 || strcmp(type_str, "q") == 0) {
 
          /* If user quits immediately, do not print records */
@@ -119,47 +97,21 @@ int main(void)
             break;
          }
 
-         /* Print records when user types q or Q */
-         printf("\nDate\t\tAmount\t\tType\t\tDescription\n");
-         printf("----\t\t------\t\t----\t\t-----------\n");
-         for(int i = 0; i < num_records; i++) {
+         /* Print records when user quits */
+         display_budget(&records[0], num_records);
 
-            int j = 0;
-            while(records[i][j] != '\0') {
-               printf("%c", records[i][j]);
-               j++;
-            }
-            printf("\n");
-         }
-
-         printf("\n");
          break;
       }
 
       printf("Enter transaction description: ");
       read_str(desc_str, DESCRIPTION_LEN);
 
+      /* Enter q or Q to exit */
       if(strcmp(desc_str, "Q") == 0 || strcmp(desc_str, "q") == 0) {
 
-         /* If user quits immediately, do not print records */
-         if(num_records == 0) {
-            break;
-         }
+         /* Print records when user quits */
+         display_budget(&records[0], num_records);
 
-         /* Print records when user types q or Q */
-         printf("\nDate\t\tAmount\t\tType\t\tDescription\n");
-         printf("----\t\t------\t\t----\t\t-----------\n");
-         for(int i = 0; i < num_records; i++) {
-
-            int j = 0;
-            while(records[i][j] != '\0') {
-               printf("%c", records[i][j]);
-               j++;
-            }
-            printf("\n");
-         }
-
-         printf("\n");
          break;
       }
 
@@ -221,7 +173,7 @@ int main(void)
    return 0;
 }
 
-/* read_str stores input data in respective arrays */
+/* read_str stores input data into given array */
 int read_str(char s[], int n) {
 
    int c, i = 0;
@@ -234,4 +186,25 @@ int read_str(char s[], int n) {
    s[i] = '\0';
 
    return i;
+}
+
+/* Display budget */
+void display_budget(char records[MAX_RECORDS][DATE_LEN \
+   + AMOUNT_LEN + TYPE_LEN + DESCRIPTION_LEN + NUM_TABS + 1], int n) {
+
+   printf("\nDate\t\tAmount\t\tType\t\tDescription\n");
+   printf("----\t\t------\t\t----\t\t-----------\n");
+
+   int j, i = 0;
+   for(int i = 0; i < n; i++) {
+
+      j = 0;
+      while(records[i][j] != '\0') {
+         printf("%c", records[i][j]);
+          j++;
+      }
+      printf("\n");
+   }
+
+   printf("\n");
 }

@@ -28,5 +28,4 @@ Date            Amount          Type            Description
 01/29/2022      721.26          i               Paycheck
 
 
-C:\Temp\cBudget
 -----------------------------------------------------------

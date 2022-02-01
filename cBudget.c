@@ -1,18 +1,18 @@
 /*
  *
- * Name:    cBudget
+ * Name:       cBudget
  *
- * Purpose: Keep track of a simple budget in a text file.
+ * Purpose:    Keep track of a simple budget in a text file.
  *
- *          Each budget record will have the following:
+ *             Each budget record will have the following:
  *
- *          Date	Amount		Type		Description
- *          ____        ______          ____            ___________
+ *             Date        Amount          Type            Description
+ *             ____        ______          ____            ___________
+ *  
+ *             mm/dd/yyyy  $xxxxxxx.yy	   Expense/Income  Description of record
  *
- *          mm/dd/yyyy	$xxxxxxx.yy	Expense/Income  Description of record
  *
- *
- * Author:  jjones4
+ * Author:     jjones4
  *
  */
 
@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_RECORDS     10000
 #define DATE_LEN        15
 #define AMOUNT_LEN      15
 #define TYPE_LEN        15
@@ -42,13 +43,11 @@ int main(void)
       char type_str[TYPE_LEN + 2], desc_str[DESCRIPTION_LEN + 2];
       char clear_input[2];
 
-      if(num_records > 1000000) {
+      if(num_records > MAX_RECORDS) {
 
          printf("Too many records\n");
          exit (EXIT_FAILURE);
       }
-
-      printf("\n");
 
       /* Open file stream for budget data */
       fp = fopen(FILE_NAME, "a+");
@@ -58,19 +57,21 @@ int main(void)
       }
 
       /* User menu */
-      printf("Type (1) to see your budget, (2) to add a record, or (3) to save and quit: ");
-
+      printf("\nType (1) to see your budget, (2) to add a record, or (3) to save and quit: ");
+      
       int c = getchar();
+
+      printf("\n");
 
       /* Display budget (option 1) */
       if(c == '1') {
 
          read_str(clear_input, 1);
          
-         printf("\n");
          printf("%-15s%-15s%-10s%-115s\n", "Date", "Amount", "Type", "Description");
          printf("%-15s%-15s%-10s%-115s\n", "----", "------", "----", "-----------");
          display_budget(fp, date_str, amount_str, type_str, desc_str);
+         printf("\n");
       }
    
       /* Enter budget record (option 2) */
@@ -131,6 +132,12 @@ void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[
 
    int i = 1;
    for(; ;) {
+      
+      /* Too many records to display, stop */
+      if(i > 32767) {
+         printf("Too many records\n");
+         exit(EXIT_FAILURE);
+      }
 
       if(i % 4 == 1) {
          if(fgets(date_str, DATE_LEN, fp) == NULL)
@@ -153,7 +160,7 @@ void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[
       if(i % 4 == 0) {
          if(fgets(desc_str, DESCRIPTION_LEN, fp) == NULL)
             break;
-         desc_str[strlen(desc_str) - 1] = '\0';
+         desc_str[strlen(desc_str) -1] = '\0';
          i++;
       }
 

@@ -16,10 +16,12 @@
  *
  */
 
+
 /* Preprocessing directives */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 #define MAX_RECORDS     10000
 #define DATE_LEN        15
@@ -28,10 +30,12 @@
 #define DESCRIPTION_LEN 115
 #define FILE_NAME       "budget.txt"
 
+
 /* Function prototypes (declarations) */
 int read_str(char str[], int n);
 void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]);
 void save_data(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]);
+
 
 int main(void)
 {
@@ -49,7 +53,7 @@ int main(void)
          exit (EXIT_FAILURE);
       }
 
-      /* Open file stream for budget data */
+      /* Open file stream for budget data text file */
       fp = fopen(FILE_NAME, "a+");
       if(fp == NULL) {
          printf("Can't open %s\n", FILE_NAME);
@@ -63,7 +67,7 @@ int main(void)
 
       printf("\n");
 
-      /* Display budget (option 1) */
+      /* Display full budget file (option 1) */
       if(c == '1') {
 
          read_str(clear_input, 1);
@@ -74,7 +78,7 @@ int main(void)
          printf("\n");
       }
    
-      /* Enter budget record (option 2) */
+      /* Create new budget record (option 2) */
       else if(c == '2') {
 
          read_str(clear_input, 1);
@@ -139,31 +143,40 @@ void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[
          exit(EXIT_FAILURE);
       }
 
+      /* First, fifth, ninth, etc. lines of file are dates */
       if(i % 4 == 1) {
          if(fgets(date_str, DATE_LEN, fp) == NULL)
             break;
+         /* Remove new line character from fgets for displaying data */
          date_str[strlen(date_str) - 1] = '\0';
          i++;
       }
+      /* Second, sixth, tenth, etc. lines of file are amounts */
       if(i % 4 == 2) {
          if(fgets(amount_str, AMOUNT_LEN, fp) == NULL)
             break;
+         /* Remove new line character from fgets for displaying data */
          amount_str[strlen(amount_str) - 1] = '\0';
          i++;
       }
+      /* Third, seventh, elevent, etc. lines of file are types */
       if(i % 4 == 3) {
          if(fgets(type_str, TYPE_LEN, fp) == NULL)
             break;
+         /* Remove new line character from fgets for displaying data */
          type_str[strlen(type_str) - 1] = '\0';
          i++;
       }
+      /* Fourth, eighth, twelfth, etc. lines of file are descriptions */
       if(i % 4 == 0) {
          if(fgets(desc_str, DESCRIPTION_LEN, fp) == NULL)
             break;
+         /* Remove new line character from fgets for displaying data */
          desc_str[strlen(desc_str) -1] = '\0';
          i++;
       }
 
+      /* Print a whole budget record (on one line) */
       printf("%-15s%-15s%-10s%-115s\n", date_str, amount_str, type_str, desc_str);
    }
 }

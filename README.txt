@@ -1,4 +1,3 @@
-
 Simple Command-Line Budget App Written in C
 -------------------------------------------
 

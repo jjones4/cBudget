@@ -1,11 +1,9 @@
 Simple Command-Line Budget App Written in C
 -------------------------------------------
 
-cBudget uses a text file called budget.txt to save new records and fetch records.
-You can choose from the options to display your budget, add a record, or remove
-a record. Note that there is no input validation yet.
-
-A session with the app might look something like this:
+cBudget uses a text file called budget.txt to store budget records. You can choose from the
+options to display your budget, add a record, or remove a record. Note that there is no
+input validation yet. A session with the app might look something like this:
 
 C:\Temp>cBudget
 

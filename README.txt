@@ -8,7 +8,7 @@ A session with this app might look something like:
 
 C:\Temp>cBudget
 
-Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 2
+Type (1) to see your budget, (2) to add a record, (3) to remove a record, or (4) to quit: 2
 
 Enter transaction date, mm/dd/yyyy: 01/25/2022
 Enter transaction amount: 4.65

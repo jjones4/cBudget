@@ -6,10 +6,10 @@
  *
  *             Each budget record will have the following:
  *
- *             Date        Amount          Type            Description
- *             ____        ______          ____            ___________
+ *             ID          Date        Amount          Type            Description
+ *             __          ____        ______          ____            ___________
  *  
- *             mm/dd/yyyy  $xxxxxxx.yy	   Expense/Income  Description of record
+ *             x           mm/dd/yyyy  $xxxxxxx.yy     Expense/Income  Description of record
  *
  *
  * Author:     jjones4
@@ -23,18 +23,21 @@
 #include <string.h>
 
 
-#define MAX_RECORDS     10000
+#define MAX_RECORDS     8192
+#define MAX_LINES	32767
 #define DATE_LEN        15
 #define AMOUNT_LEN      15
 #define TYPE_LEN        15
 #define DESCRIPTION_LEN 115
 #define FILE_NAME       "budget.txt"
+#define TEMP_FILE	"temp.txt"
 
 
 /* Function prototypes (declarations) */
 int read_str(char str[], int n);
 void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]);
 void save_data(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]);
+void remove_record(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]);
 
 
 int main(void)
@@ -53,15 +56,8 @@ int main(void)
          exit (EXIT_FAILURE);
       }
 
-      /* Open file stream for budget data text file */
-      fp = fopen(FILE_NAME, "a+");
-      if(fp == NULL) {
-         printf("Can't open %s\n", FILE_NAME);
-         exit(EXIT_FAILURE);
-      }
-
       /* User menu */
-      printf("\nType (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: ");
+      printf("\nType (1) to see your budget, (2) to add a record, (3) to remove a record, or (4) to quit: ");
       
       int c = getchar();
 
@@ -70,16 +66,32 @@ int main(void)
       /* Display full budget file (option 1) */
       if(c == '1') {
 
+         /* Open file stream for budget data text file */
+         fp = fopen(FILE_NAME, "r");
+         if(fp == NULL) {
+            printf("Can't open %s\n", FILE_NAME);
+            exit(EXIT_FAILURE);
+         }
+
          read_str(clear_input, 1);
          
          printf("%-9s%-15s%-15s%-10s%-115s\n", "ID   ", "Date", "Amount", "Type", "Description");
          printf("%-9s%-15s%-15s%-10s%-115s\n", "--", "----", "------", "----", "-----------");
          display_budget(fp, date_str, amount_str, type_str, desc_str);
+
+         fclose(fp);
          printf("\n");
       }
    
       /* Create new budget record (option 2) */
       else if(c == '2') {
+
+         /* Open file stream for budget data text file */
+         fp = fopen(FILE_NAME, "a+");
+         if(fp == NULL) {
+            printf("Can't open %s\n", FILE_NAME);
+            exit(EXIT_FAILURE);
+         }
 
          read_str(clear_input, 1);
 
@@ -95,28 +107,29 @@ int main(void)
          save_data(fp, date_str, amount_str, type_str, desc_str);
 
          fclose(fp);
-
-         fp = fopen(FILE_NAME, "a+");
-         if(fp == NULL) {
-            printf("Can't open %s\n", FILE_NAME);
-         exit(EXIT_FAILURE);
-         }
       }
 
-      /* Exit program (option 3) */
+      /* Remove a record (option 3) */
       else if(c == '3') {
 
-         printf("This will remove a record. Are you sure?\n");
+         /* Open file stream for budget data text file */
+         fp = fopen(FILE_NAME, "r");
+         if(fp == NULL) {
+            printf("Can't open %s\n", FILE_NAME);
+            exit(EXIT_FAILURE);
+         }
 
          read_str(clear_input, 1);
+         
+         remove_record(fp, date_str, amount_str, type_str, desc_str);
       }
 
       /* Exit program (option 4) */
       else if(c == '4') {
 
+         fclose(fp);
          exit(EXIT_SUCCESS);
       }
-
       /* Check for invalid option */
       else {
 
@@ -131,6 +144,148 @@ int main(void)
 
    fclose(fp);
    return 0;
+}
+
+/* Remove a record */
+void remove_record(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]) {
+
+   int i = 1, j = 1, line_num = 0, file_line_num = 0, ctr = 0;
+   int option;
+   char clear_input[2];
+   FILE* temp_pointer;
+
+   /* Open temp file for budget data text file */
+   temp_pointer = fopen(TEMP_FILE, "w");
+   if(temp_pointer == NULL) {
+      printf("Can't open %s\n", TEMP_FILE);
+      exit(EXIT_FAILURE);
+   }
+
+   while(1) {
+      printf("Enter the line number of the record you want to remove: ");
+   
+      scanf("%d", &line_num);
+
+      if(line_num > 32767 || line_num < 1) {
+         printf("\nInvalid line number\n\n");
+         continue;
+      }
+   
+      printf("\nYou are about to remove line %d. Are you sure? (Y/y, N/n): ", line_num);
+
+      /* Clear input */
+      read_str(clear_input, 1);
+
+      option = getchar();
+      if(option == 'Y' || option == 'y') {
+         file_line_num = line_num * 4 - 3;
+
+         /* Copy all contents of budget.txt to temporary file exept the lines in the
+            record you want to delete */
+         while(!feof(fp)) {
+
+            for(; ;) {
+
+               /* Too many records, stop */
+               if(i > 32767) {
+                  printf("Too many records\n");
+                  exit(EXIT_FAILURE);
+               }
+
+               /* First, fifth, ninth, etc. lines of file are dates */
+               if(i % 4 == 1) {
+
+                  if(fgets(date_str, DATE_LEN, fp) == NULL)
+                     break;
+                  
+                  if(!feof(fp)) {
+
+                     ctr++;
+                     /* Skip the lines at the given line number when populating
+                        the temp file */
+                     if(ctr != file_line_num) {
+                        fprintf(temp_pointer, "%s", date_str);
+                     }
+                  }
+                  /* Remove new line character from fgets for displaying data */
+                  /* date_str[strlen(date_str) - 1] = '\0'; */
+                  i++;
+               }
+
+               /* Second, sixth, tenth, etc. lines of file are amounts */
+               if(i % 4 == 2) {
+                  if(fgets(amount_str, AMOUNT_LEN, fp) == NULL)
+                     break;
+
+                  if(!feof(fp)) {
+
+                     ctr++;
+                     /* Skip the lines at the given line number when populating
+                        the temp file */
+                     if(ctr != file_line_num + 1) {
+                        fprintf(temp_pointer, "%s", amount_str);
+                     }
+                  }
+                  /* Remove new line character from fgets for displaying data */
+                  /* amount_str[strlen(amount_str) - 1] = '\0'; */
+                  i++;
+               }
+               /* Third, seventh, elevent, etc. lines of file are types */
+               if(i % 4 == 3) {
+                  if(fgets(type_str, TYPE_LEN, fp) == NULL)
+                     break;
+
+                  if(!feof(fp)) {
+
+                     ctr++;
+                     /* Skip the lines at the given line number when populating
+                        the temp file */
+                     if(ctr != file_line_num + 2) {
+                        fprintf(temp_pointer, "%s", type_str);
+                     }
+                  }
+                  /* Remove new line character from fgets for displaying data */
+                  /* type_str[strlen(type_str) - 1] = '\0'; */
+                  i++;
+               }
+               /* Fourth, eighth, twelfth, etc. lines of file are descriptions */
+               if(i % 4 == 0) {
+                  if(fgets(desc_str, DESCRIPTION_LEN, fp) == NULL)
+                     break;
+
+                  if(!feof(fp)) {
+
+                     ctr++;
+                     /* Skip the lines at the given line number when populating
+                        the temp file */
+                     if(ctr != file_line_num + 3) {
+                        fprintf(temp_pointer, "%s", desc_str);
+                     }
+                  }
+                  /* Remove new line character from fgets for displaying data */
+                  /* desc_str[strlen(desc_str) -1] = '\0'; */
+                  i++;
+               }
+            }
+         }
+
+         fclose(temp_pointer);
+         fclose(fp);
+         remove(FILE_NAME);
+         rename(TEMP_FILE, FILE_NAME);
+
+         printf("\nRecord %d cleared successfully!\n", line_num);
+         read_str(clear_input, 1);
+         return;
+      }
+      else {
+         fclose(temp_pointer);
+         fclose(fp);
+         printf("\nNo records removed!\n");
+         read_str(clear_input, 1);
+         return;
+      }
+   }
 }
 
 /* Save budget record into budget.txt */

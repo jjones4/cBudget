@@ -1,10 +1,13 @@
 Simple Command Line Budget App Written in C
 
+You can create a new budget record or display your budget.
+
+The program saves your records in a text file called budget.txt.
+
 Note that there is no input validation yet.
 
-The type of transaction is either Expense or Income.
 
-A session with this app might look something like:
+A session with the app might look something like this:
 
 C:\Temp>cBudget
 

@@ -24,6 +24,8 @@ Enter transaction amount: 2.75
 Enter transaction type: Expense
 Enter transaction description: Laundry
 
+Record added successfully!
+
 Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 1
 
 ID       Date           Amount         Type      Description

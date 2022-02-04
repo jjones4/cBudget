@@ -2,7 +2,7 @@ Simple Command Line Budget App Written in C
 
 Note that there is no input validation yet.
 
-The type of transaction is either e (expense) or i (income).
+The type of transaction is either Expense or Income.
 
 A session with this app might look something like:
 
@@ -12,7 +12,7 @@ Type (1) to see your budget, (2) to add a record, (3) to remove a record, or (4)
 
 Enter transaction date, mm/dd/yyyy: 01/25/2022
 Enter transaction amount: 4.65
-Enter transaction type, e or i: Expense
+Enter transaction type: Expense
 Enter transaction description: Snacks
 
 Record added successfully!
@@ -21,7 +21,7 @@ Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or 
 
 Enter transaction date, mm/dd/yyyy: 01/26/2022
 Enter transaction amount: 2.75
-Enter transaction type, e or i: Expense
+Enter transaction type: Expense
 Enter transaction description: Laundry
 
 Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 1

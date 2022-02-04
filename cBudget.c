@@ -61,7 +61,7 @@ int main(void)
       }
 
       /* User menu */
-      printf("\nType (1) to see your budget, (2) to add a record, or (3) to save and quit: ");
+      printf("\nType (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: ");
       
       int c = getchar();
 
@@ -72,8 +72,8 @@ int main(void)
 
          read_str(clear_input, 1);
          
-         printf("%-15s%-15s%-10s%-115s\n", "Date", "Amount", "Type", "Description");
-         printf("%-15s%-15s%-10s%-115s\n", "----", "------", "----", "-----------");
+         printf("%-9s%-15s%-15s%-10s%-115s\n", "ID   ", "Date", "Amount", "Type", "Description");
+         printf("%-9s%-15s%-15s%-10s%-115s\n", "--", "----", "------", "----", "-----------");
          display_budget(fp, date_str, amount_str, type_str, desc_str);
          printf("\n");
       }
@@ -93,10 +93,26 @@ int main(void)
          read_str(desc_str, DESCRIPTION_LEN);
 
          save_data(fp, date_str, amount_str, type_str, desc_str);
+
+         fclose(fp);
+
+         fp = fopen(FILE_NAME, "a+");
+         if(fp == NULL) {
+            printf("Can't open %s\n", FILE_NAME);
+         exit(EXIT_FAILURE);
+         }
       }
 
       /* Exit program (option 3) */
       else if(c == '3') {
+
+         printf("This will remove a record. Are you sure?\n");
+
+         read_str(clear_input, 1);
+      }
+
+      /* Exit program (option 4) */
+      else if(c == '4') {
 
          exit(EXIT_SUCCESS);
       }
@@ -129,12 +145,14 @@ void save_data(FILE* fp, char date_str[], char amount_str[], char type_str[], ch
    fprintf(fp, "\n");
    fprintf(fp, "%s", desc_str);
    fprintf(fp, "\n");
+
+   printf("\nYour record was added successfully!\n");
 }
 
 /* Display budget file entries on command line */
 void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[], char desc_str[]) {
 
-   int i = 1;
+   int i = 1, j = 1;
    for(; ;) {
       
       /* Too many records to display, stop */
@@ -177,7 +195,8 @@ void display_budget(FILE* fp, char date_str[], char amount_str[], char type_str[
       }
 
       /* Print a whole budget record (on one line) */
-      printf("%-15s%-15s%-10s%-115s\n", date_str, amount_str, type_str, desc_str);
+      printf("%-9d%-15s%-15s%-10s%-115s\n", j, date_str, amount_str, type_str, desc_str);
+      j++;
    }
 }
 

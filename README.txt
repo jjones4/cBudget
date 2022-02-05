@@ -40,6 +40,6 @@ ID       Date           Amount         Type      Description
 5        01/25/2022     4.65           Expense   Snacks
 6        01/26/2022     2.75           Expense   Laundry
 
-Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 4
-
+Type (1) to see your budget, (2) to add a record, (3) to remove a record,
+(4) to edit a record, or (5) to quit: 5
 C:\Temp>cBudget

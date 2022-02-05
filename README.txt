@@ -1,6 +1,8 @@
 Simple Command-Line Budget App Written in C
 -------------------------------------------
 
+cBudget may be freely distributed under the MIT license. See the LICENSE file for details.
+
 cBudget uses a text file called budget.txt to store budget records. You can choose from the
 options to display your budget, add a record, remove a record, edit a record, or quit. Note
 that there is not much input validation yet. A session with the app might look something

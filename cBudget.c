@@ -55,10 +55,12 @@ int main(void)
          exit (EXIT_FAILURE);
       }
 
-      /* User menu */
-      printf("\nType (1) to see your budget, (2) to add a record, ");
-      printf("(3) to remove a record, (4) to edit an existing record, ");
-      printf("or (5) to quit: ");
+      /* Menu */
+      printf("\nChoose from the following options:\n");
+      printf("\n\t(1) Display your budget\n\t(2) Create a new record");
+      printf("\n\t(3) Delete a record\n\t(4) Update an existing record");
+      printf("\n\t(5) Quit\n");
+      printf("\nType your option: ");
 
       /* Display full budget (option 1) */
       int c = getchar();
@@ -144,7 +146,7 @@ int main(void)
       else {
 
          read_str(clear_input, 1);
-         printf("You entered an invalid option. Try again.\n");
+         printf("\nYou entered an invalid option. Try again.\n");
          continue;
       }
 
@@ -181,8 +183,11 @@ void update_record(FILE* fp, FILE* temp_pointer) {
       }
 
       while(1) {
-         printf("\nType (1) to change the date, (2) to change the amount,");
-         printf("(3) to change the type, or (4) to change the description: ");
+
+         printf("\nChoose from the following options:\n");
+         printf("\n\t(1) Change the date\n\t(2) Change the amount");
+         printf("\n\t(3) Change the type\n\t(4) Change the description");
+         printf("\n\nType your option: ");
 
          read_str(clear_input, 1);
          scanf("%d", &option);

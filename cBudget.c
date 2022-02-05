@@ -27,12 +27,12 @@
 #define FILE_NAME       "budget.txt"
 #define TEMP_FILE	"temp.txt"
 
-/* Function prototypes (declarations) */
-int read_str(char str[], int n);
-void display_budget(FILE* fp);
-void save_data(FILE* fp);
-void remove_record(FILE* fp, FILE* temp_pointer);
+/* Function prototypes - CRUD operations */
+void create_record(FILE* fp);
+void read_budget(FILE* fp);
 void update_record(FILE* fp, FILE* temp_pointer);
+void delete_record(FILE* fp, FILE* temp_pointer);
+int read_str(char str[], int n);
 
 int main(void)
 {
@@ -42,7 +42,7 @@ int main(void)
 
    /* Loop to keep returning to main menu */
    while(1) {
-      
+
       char clear_input[2];
 
       if(num_records > MAX_RECORDS) {
@@ -54,12 +54,9 @@ int main(void)
       printf("\nType (1) to see your budget, (2) to add a record, ");
       printf("(3) to remove a record, (4) to edit an existing record, ");
       printf("or (5) to quit: ");
-      
-      int c = getchar();
-
-      printf("\n");
 
       /* Display full budget (option 1) */
+      int c = getchar();
       if(c == '1') {
 
          /* Open file stream for budget data text file */
@@ -69,8 +66,8 @@ int main(void)
             exit(EXIT_FAILURE);
          }
 
-         display_budget(fp);
          printf("\n");
+         read_budget(fp);
       }
    
       /* Create new budget record (option 2) */
@@ -83,9 +80,7 @@ int main(void)
             exit(EXIT_FAILURE);
          }
 
-         save_data(fp);
-
-         fclose(fp);
+         create_record(fp);
       }
 
       /* Remove a record (option 3) */
@@ -108,7 +103,7 @@ int main(void)
             exit(EXIT_FAILURE);
          }
          
-         remove_record(fp, temp_pointer);
+         delete_record(fp, temp_pointer);
       }
 
       /* Update an existing record (option 4) */
@@ -144,7 +139,6 @@ int main(void)
       else {
 
          read_str(clear_input, 1);
-
          printf("You entered an invalid option. Try again.\n");
          continue;
       }
@@ -172,7 +166,7 @@ void update_record(FILE* fp, FILE* temp_pointer) {
    char clear_input[2];
 
    while(1) {
-      printf("Enter the line number of the record you want to update: ");
+      printf("\nEnter the line number of the record you want to update: ");
    
       scanf("%d", &line_num);
 
@@ -307,7 +301,7 @@ void update_record(FILE* fp, FILE* temp_pointer) {
 }
 
 /* Remove a record */
-void remove_record(FILE* fp, FILE* temp_pointer) {
+void delete_record(FILE* fp, FILE* temp_pointer) {
 
    int line_num = 0, file_line_num = 0, ctr = 0;
    int option;
@@ -415,7 +409,7 @@ void remove_record(FILE* fp, FILE* temp_pointer) {
 }
 
 /* Save budget record into budget.txt */
-void save_data(FILE* fp) {
+void create_record(FILE* fp) {
 
    /* Declare arrays for each part of the record */
    char date_str[DATE_LEN + 2], amount_str[AMOUNT_LEN + 2];
@@ -445,10 +439,11 @@ void save_data(FILE* fp) {
    fprintf(fp, "\n");
 
    printf("\nYour record was added successfully!\n");
+   fclose(fp);
 }
 
 /* Display budget file entries on command line */
-void display_budget(FILE* fp) {
+void read_budget(FILE* fp) {
 
    int i = 1, j = 1;
 

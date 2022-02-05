@@ -2,12 +2,14 @@ Simple Command-Line Budget App Written in C
 -------------------------------------------
 
 cBudget uses a text file called budget.txt to store budget records. You can choose from the
-options to display your budget, add a record, or remove a record. Note that there is not
-much input validation yet. A session with the app might look something like this:
+options to display your budget, add a record, remove a record, edit a record, or quit. Note
+that there is not much input validation yet. A session with the app might look something
+like this:
 
 C:\Temp>cBudget
 
-Type (1) to see your budget, (2) to add a record, (3) to remove a record, or (4) to quit: 2
+Type (1) to see your budget, (2) to add a record, (3) to remove a record,
+(4) to edit a record, or (5) to quit: 2
 
 Enter transaction date, mm/dd/yyyy: 01/25/2022
 Enter transaction amount: 4.65
@@ -16,7 +18,8 @@ Enter transaction description: Snacks
 
 Record added successfully!
 
-Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 2
+Type (1) to see your budget, (2) to add a record, (3) to remove a record,
+(4) to edit a record, or (5) to quit: 2
 
 Enter transaction date, mm/dd/yyyy: 01/26/2022
 Enter transaction amount: 2.75
@@ -25,7 +28,8 @@ Enter transaction description: Laundry
 
 Record added successfully!
 
-Type (1) to see your budget, (2) to add a record, or (3) to remove a record, or (4) to quit: 1
+Type (1) to see your budget, (2) to add a record, (3) to remove a record,
+(4) to edit a record, or (5) to quit: 2
 
 ID       Date           Amount         Type      Description
 --       ----           ------         ----      -----------

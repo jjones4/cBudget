@@ -10,6 +10,11 @@
  *
  * Author:     jjones4
  *
+ * Copyright (C) 2022 Jerad Jones
+ * This file is part of cBudget.  cBudget may be freely distributed
+ * under the MIT license.  For all details and documentation, see
+ * https://github.com/jjones4/cBudget
+ *
  */
 
 /* Preprocessing directives */

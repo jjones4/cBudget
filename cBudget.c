@@ -42,11 +42,7 @@ int main(void)
 
    /* Loop to keep returning to main menu */
    while(1) {
-
-      /* TODO: remove the declarations when I finish moving them to the function in update record */
-      char date_str[DATE_LEN + 2], amount_str[AMOUNT_LEN + 2];
-      char type_str[TYPE_LEN + 2], desc_str[DESCRIPTION_LEN + 2];
-
+      
       char clear_input[2];
 
       if(num_records > MAX_RECORDS) {

@@ -44,4 +44,5 @@ ID       Date           Amount         Type      Description
 
 Type (1) to see your budget, (2) to add a record, (3) to remove a record,
 (4) to edit a record, or (5) to quit: 5
+
 C:\Temp>cBudget

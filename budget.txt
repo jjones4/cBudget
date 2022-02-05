@@ -1,0 +1,24 @@
+01/02/2022
+23.25
+Expense
+Gas
+01/08/2022
+4.65
+Expense
+Snacks
+01/09/2022
+4.75
+Expense
+Laundry
+01/18/2022
+500.00
+Income
+Paycheck
+01/21/2022
+6.00
+Expense
+Car wash
+01/25/2022
+175.23
+Expense
+Groceries

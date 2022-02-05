@@ -29,7 +29,7 @@ Enter transaction description: Laundry
 Record added successfully!
 
 Type (1) to see your budget, (2) to add a record, (3) to remove a record,
-(4) to edit a record, or (5) to quit: 2
+(4) to edit a record, or (5) to quit: 1
 
 ID       Date           Amount         Type      Description
 --       ----           ------         ----      -----------

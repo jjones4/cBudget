@@ -30,7 +30,7 @@ You can do the following using the program's options:
 
 When a record is edited or removed, cBudget moves the revised data to a temporary text file called "temp.txt." The original "budget.txt" file is then removed. Finally, "tempt.txt is renamed to "budget.txt."
 
-A text file with some example budget records has been included at the project's root. It's called "budget.txt." Please note that each part of the budget record is stored on its own line in the text file. One budget record consists of the following fields:
+A sample budget file, "budget.txt", has been included at the project's root. Please note that each part of the budget record is stored on its own line in the text file. One budget record consists of the following fields:
 - Date
 - Amount
 - Type (Expense or Income)

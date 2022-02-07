@@ -7,7 +7,7 @@ cBudget may be freely distributed under the MIT license. See the LICENSE file fo
 ## Building cBudget  
 
 1. Download cBudget from GitHub.
-2. Extract to your desired location (I will extract the ZIP folder, cBudget-main, to C:\temp\).
+2. Extract to your desired location (for example, extract the ZIP folder, cBudget-main, to C:\temp\).
 3. Launch the Visual Studio Developer Command Prompt.
 4. Navigate to the main project directory.
    - C:\temp\cBudget-main>cd c:\temp\cBudget-main

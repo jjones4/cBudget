@@ -10,7 +10,7 @@
  *
  * Author:     jjones4
  *
- * Copyright (c) 2022 Jerad Jones
+ * Copyright (C) 2022 Jerad Jones
  * This file is part of cBudget.  cBudget may be freely distributed
  * under the MIT license.  For all details and documentation, see
  * https://github.com/jjones4/cBudget
@@ -43,17 +43,11 @@ int main(void)
 {
    FILE* fp;
    FILE* temp_pointer;
-   int num_records = 0;
 
    /* Loop to keep returning to main menu */
    while(1) {
 
       char clear_input[2];
-
-      if(num_records > MAX_RECORDS) {
-         printf("Too many records\n");
-         exit (EXIT_FAILURE);
-      }
 
       /* Menu */
       printf("\nChoose from the following options:\n");
@@ -125,7 +119,7 @@ int main(void)
 
          /* 
           * Open temp file for holding data after the record
-          * has been removed
+          * has been updated
           */
          temp_pointer = fopen(TEMP_FILE, "w");
          if(temp_pointer == NULL) {
@@ -149,8 +143,6 @@ int main(void)
          printf("\nYou entered an invalid option. Try again.\n");
          continue;
       }
-
-      num_records++;
    }
 
    fclose(fp);
@@ -475,7 +467,7 @@ void read_budget(FILE* fp) {
    while(!feof(fp)) {
       
       /* Too many records to display, stop */
-      if(i > 32767) {
+      if(j > MAX_RECORDS) {
          printf("Too many records\n");
          exit(EXIT_FAILURE);
       }

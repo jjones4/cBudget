@@ -20,7 +20,7 @@ cBudget may be freely distributed under the MIT license. See the LICENSE file fo
 
 ## Using cBudget  
 
-cBudget is used by typing options into the command line. Budget records are saved in a text file called "budget.txt" and displayed on the command line when the appropriate options are typted at the prompt.
+cBudget is used by typing options into the command line. Budget records are saved in a text file called "budget.txt" and displayed on the command line when the appropriate options are typed at the prompt.
 
 You can do the following using the command line options:
 - Create new records

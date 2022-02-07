@@ -36,3 +36,8 @@ A text file with some example budget records has been included at the project's 
 - Type (Expense or Income)
 - Description
 
+## Future Plans  
+
+- Add input validation for each menu option.
+- Add sorting and searching functions.
+- Add a function that checks the file size and ensures too many records are not created.

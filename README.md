@@ -14,7 +14,7 @@ cBudget may be freely distributed under the MIT license. See the LICENSE file fo
 5. Build the source file.
    - C:\temp\cBudget-main>cl cBudget.c
 6. An object file and an executable file should be created.
-7. To run the program from the Developer Command Prompt.
+7. Run the program from the Developer Command Prompt.
    - C:\temp\cBudget-main>cBudget.
 8. You should be presented with the program's main menu.
 

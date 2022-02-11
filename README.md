@@ -41,4 +41,4 @@ A sample budget file, "budget.txt," has been included at the project's root. Ple
 - Add input validation for each menu option.
 - Add sorting and searching functions.
 - Add a function that checks the file size and ensures too many records are not created.
-- Add the option to look at montly totals
+- Add the option to look at monthly totals

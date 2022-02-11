@@ -7,7 +7,7 @@ cBudget may be freely distributed under the MIT license. See the LICENSE file fo
 ## Building cBudget  
 
 1. Download cBudget from GitHub.
-2. Extract to your desired location (for example, extract the ZIP folder, cBudget-main, to C:\temp\).
+2. Extract to your desired location (for example, extract cBudget-main.zip to C:\temp).
 3. Launch the Visual Studio Developer Command Prompt.
 4. Change to the main project directory.
    - cd c:\temp\cBudget-main
@@ -20,15 +20,15 @@ cBudget may be freely distributed under the MIT license. See the LICENSE file fo
 
 ## Using cBudget  
 
-cBudget is used by typing options at the command line. Budget records are saved in a text file called "budget.txt" and displayed on the command line when the appropriate options are entered.
+cBudget is used by typing options and enterying data at the command-line. Budget records are saved in a text file called "budget.txt" and displayed in the command window when the appropriate options are entered.
 
-You can do the following using the program's options:
+You can do the following using the command-line options:
 - Create new records
 - Display your budget
 - Update an existing record
 - Remove a record
 
-When a record is edited or removed, cBudget moves the revised data to a temporary text file called "temp.txt." The original "budget.txt" file is then removed. Finally, "tempt.txt is renamed to "budget.txt."
+When a record is edited or removed, cBudget moves the revised data to a temporary text file called "temp.txt." Next, the original "budget.txt" file is removed. Finally, "tempt.txt is renamed to "budget.txt."
 
 A sample budget file, "budget.txt," has been included at the project's root. Please note that each part of the budget record is stored on its own line in the text file. One budget record consists of the following fields:
 - Date
@@ -41,3 +41,4 @@ A sample budget file, "budget.txt," has been included at the project's root. Ple
 - Add input validation for each menu option.
 - Add sorting and searching functions.
 - Add a function that checks the file size and ensures too many records are not created.
+- Add the option to look at montly totals
